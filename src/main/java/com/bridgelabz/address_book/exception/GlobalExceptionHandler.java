@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
     private static final String message="Exception while processing REST Request";
@@ -21,6 +23,7 @@ public class GlobalExceptionHandler {
         ResponseDTO responseDTO = new ResponseDTO(message,"Should have date in the format dd-MM-yyyy");
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST);
     }
+
 
     @ExceptionHandler(AddressBookException.class)
     public ResponseEntity<ResponseDTO> handlePayrollException(AddressBookException exception){

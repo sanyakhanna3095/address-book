@@ -3,15 +3,15 @@ package com.bridgelabz.address_book.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-public @ToString class AddressDTO {
+@Data
+public class AddressDTO {
     @NotEmpty(message = "User name can't be null")
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = "Invalid name")
     private String name;
@@ -32,11 +32,5 @@ public @ToString class AddressDTO {
     @NotNull(message = "endDate should not be empty")
     @FutureOrPresent(message = "End date should be a future date or today's date")
     public LocalDate endDate;
-
-
-//    @Override
-//    public String toString() {
-//        return "AddressDTO{" + "name='" + name + '\'' + ", phone='" + phone + '\'' + ", address='" + address + '\'' + '}';
-//    }
 
 }
