@@ -8,10 +8,14 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "book_service")
 public @Data class Address {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "userId")
     private long userId;
+
+    @Column(name = "name")
     private String name;
     private String phone;
     private String address;
@@ -37,4 +41,11 @@ public @Data class Address {
     }
 
 
+    public void updateAddressData(AddressDTO addressDTO) {
+        this.name=addressDTO.getName();
+        this.phone=addressDTO.getPhone();
+        this.address=addressDTO.getAddress();
+        this.startDate=addressDTO.getStartDate();
+        this.endDate=addressDTO.getEndDate();
+    }
 }
