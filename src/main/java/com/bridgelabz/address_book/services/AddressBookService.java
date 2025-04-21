@@ -10,35 +10,40 @@ import java.util.List;
 @Service
 public class AddressBookService implements IAddressBookService{
 
+    private List<Address> addressDataList=new ArrayList<>();
+
     public List<Address> getAddressData() {
-        List<Address> addressDataList=new ArrayList<>();
-        addressDataList.add(new Address(1, new AddressDTO("Sanya", "234567", "Ludhiana, Punjab")));
         return addressDataList;
     }
 
 
     public Address getAddressDataById(long userId) {
-        Address addressData=null;
-        addressData=new Address(1, new AddressDTO("Sanya", "234567", "Ludhiana, Punjab"));
-        return addressData;
+        return addressDataList.stream()
+                .filter(addressData -> addressData.getUserId()== userId)
+                .findFirst()
+                .orElseThrow();
     }
 
 
     public Address addAddressData(AddressDTO addressDTO) {
         Address addressData=null;
-        addressData=new Address(1,addressDTO);
+        addressData=new Address(addressDataList.size()+1,addressDTO);
+        addressDataList.add(addressData);
         return addressData;
     }
 
 
-    public Address updateAddressData(AddressDTO addressDTO) {
-        Address addressData=null;
-        addressData=new Address(1,new AddressDTO());
+    public Address updateAddressData(long userId, AddressDTO addressDTO) {
+        Address addressData=this.getAddressDataById(userId);
+        addressData.setName(addressDTO.getName());
+        addressData.setPhone(addressDTO.getPhone());
+        addressData.setAddress(addressDTO.getAddress());
+        addressDataList.set((int) userId-1, addressData);
         return addressData;
     }
 
 
     public void deleteAddressData(long userId) {
-
+        addressDataList.remove((int)userId-1);
     }
 }

@@ -9,7 +9,7 @@ public interface IAddressBookService {
     List<Address> getAddressData();
     Address getAddressDataById(long userId);
     Address addAddressData(AddressDTO addressDTO);
-    Address updateAddressData(AddressDTO addressDTO);
+    Address updateAddressData(long userId, AddressDTO addressDTO);
     void deleteAddressData(long userId);
 
 }
