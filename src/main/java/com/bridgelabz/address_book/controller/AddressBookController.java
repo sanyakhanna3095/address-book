@@ -1,6 +1,8 @@
 package com.bridgelabz.address_book.controller;
 
 import com.bridgelabz.address_book.dto.AddressDTO;
+import com.bridgelabz.address_book.dto.ResponseDTO;
+import com.bridgelabz.address_book.model.Address;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,28 +11,37 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/addressbook")
 public class AddressBookController {
     @RequestMapping(value = {"", "/","/get"})
-    public ResponseEntity<String> getAddressData(){
-        return new ResponseEntity<String>("Get call success", HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> getAddressData(){
+        Address address=new Address(1, new AddressDTO());
+        ResponseDTO responseDTO= new ResponseDTO("Get call success", address);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
     @GetMapping("/get/{userId}")
-    public ResponseEntity<String> getAddressDataById(@PathVariable("userId") long userId){
-        return new ResponseEntity<String>("Get by id call successful for id: "+userId, HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> getAddressDataById(@PathVariable("userId") long userId){
+        Address address=new Address(1, new AddressDTO());
+        ResponseDTO responseDTO=new ResponseDTO("Get by id call successful for id: ",userId);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> addAddressData(@RequestBody AddressDTO addressDTO){
-        return new ResponseEntity<String>("Created address data for: "+ addressDTO, HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> addAddressData(@RequestBody AddressDTO addressDTO){
+        Address address=new Address(1, new AddressDTO());
+        ResponseDTO responseDTO=new ResponseDTO("Created address data for: ", addressDTO +"Successfully!");
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
     @PutMapping("/put")
-    public ResponseEntity<String> updateAddressData(@RequestBody AddressDTO addressDTO){
-        return new ResponseEntity<String>("Updated address data for id: "+ addressDTO, HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> updateAddressData(@RequestBody AddressDTO addressDTO){
+        Address address=new Address(1, new AddressDTO());
+        ResponseDTO responseDTO=new ResponseDTO("Updated address data for id: ", addressDTO);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<String> deleteAddressData(@PathVariable("userId") long userId){
-        return new ResponseEntity<String>("Delete by id call successful for id: "+userId, HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> deleteAddressData(@PathVariable("userId") long userId){
+        ResponseDTO responseDTO=new ResponseDTO("Delete by id call successful for id: ",userId);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
 }

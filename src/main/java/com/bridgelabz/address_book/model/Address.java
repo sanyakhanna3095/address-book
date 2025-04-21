@@ -1,11 +1,12 @@
 package com.bridgelabz.address_book.model;
 
 
+import com.bridgelabz.address_book.dto.AddressDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-public class Address {
+public @Data class Address {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long userId;
@@ -13,36 +14,11 @@ public class Address {
     private String phone;
     private String address;
 
-    public long getId(){
-        return userId;
-    }
-
-    public void setId(long userId){
+    public Address(long userId, AddressDTO addressDTO) {
         this.userId=userId;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public  void setName(String name){
-        this.name=name;
-    }
-
-    public String getPhone(){
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress(String address){
-        return address;
-    }
-
-    public void setAddress(String address){
-        this.address=address;
+        this.name=addressDTO.getName();
+        this.phone=addressDTO.getPhone();
+        this.address=addressDTO.getAddress();
     }
     public Address(){}
     public Address(long userId, String name, String phone, String address){
@@ -51,4 +27,6 @@ public class Address {
         this.phone=phone;
         this.address=address;
     }
+
+
 }
